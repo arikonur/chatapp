@@ -1,6 +1,7 @@
-package com.example.chatapp;
+package com.example.chatapp.Adapters;
 
 import  android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.chatapp.Activities.ChatActivity;
+import com.example.chatapp.R;
+import com.example.chatapp.Models.User;
 import com.example.chatapp.databinding.RowConservationBinding;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +47,13 @@ public class  UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHo
                 .placeholder(R.drawable.avatar)
                 .into(holder.binding.profile);
 
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra("name",user.getName());
+            intent.putExtra("uid",user.getUid());
+            context.startActivity(intent);
+        });
+
     }
 
     @Override
@@ -50,12 +61,12 @@ public class  UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHo
         return users.size();
     }
 
-    public class UsersViewHolder extends RecyclerView.ViewHolder{
+    public static class UsersViewHolder extends RecyclerView.ViewHolder{
 
         RowConservationBinding binding;
         public UsersViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            binding=RowConservationBinding.bind(itemView);
+            binding= RowConservationBinding.bind(itemView);
         }
     }
 }
